@@ -25,3 +25,5 @@ end
 EOF
 
 nnoremap <buffer> <cr> :w<cr>:lua asciidoctor_goto_link()<cr>
+
+nnoremap <localleader>l ilink:<c-r>+[]<left>
