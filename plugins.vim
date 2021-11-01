@@ -43,6 +43,9 @@ Plug 'nvim-telescope/telescope.nvim'
 " https://github.com/ggreer/the_silver_searcher
 Plug 'rking/ag.vim'
 
+" Alternate between source and test files
+Plug 'tpope/vim-projectionist'
+
 
 "------------------------------------------------------------
 " LSP
@@ -56,7 +59,11 @@ Plug 'neovim/nvim-lspconfig'
 " Autocomplete
 "
 
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
 
 
 "------------------------------------------------------------
