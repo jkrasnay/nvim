@@ -12,16 +12,16 @@ function asciidoctor_goto_link()
     j = j1 or j2
     if j then
         i,_ = string.find(string.sub(s, j+1, -1), "http")
+        -- g0  - go to first column
+        -- l   - move right by 'j' columns
+        -- vt[ - visual select to the next [ char
+        -- gf  - go to file under cursor
+        -- gx  - go to URL under cursor
         if i == 1 then
-            cmd = "gx"
+            vim.api.nvim_command("normal g0" .. j .. "lgx")
         else
-            cmd = "gf"
+            vim.api.nvim_command("normal g0" .. j .. "lvt[gf")
         end
-        -- g0 - go to first column
-        -- l  - move right by 'j' columns
-        -- gf - go to file under cursor
-        -- gx - go to URL under cursor
-        vim.api.nvim_command("normal g0" .. j .. "l" .. cmd)
     end
 end
 EOF
