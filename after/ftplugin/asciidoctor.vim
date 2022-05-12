@@ -7,7 +7,9 @@ setlocal textwidth=80
 lua << EOF
 function asciidoctor_goto_link()
     s = vim.api.nvim_get_current_line()
-    _,j = string.find(s, "link:")
+    _,j1 = string.find(s, "link:")
+    _,j2 = string.find(s, "xref:")
+    j = j1 or j2
     if j then
         i,_ = string.find(string.sub(s, j+1, -1), "http")
         if i == 1 then
