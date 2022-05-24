@@ -10,6 +10,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 "   https://github.com/liuchengxu/vista.vim
 "
 
+Plug '~/ws/luhmann.nvim'
+
 "------------------------------------------------------------
 " Appearance
 "
@@ -74,7 +76,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'sheerun/vim-polyglot'
 
 " Clojure REPL support
-Plug 'Olical/conjure', {'tag': 'v4.13.0'}
+Plug 'Olical/conjure'
 
 " Support for s-expressions
 Plug 'guns/vim-sexp'

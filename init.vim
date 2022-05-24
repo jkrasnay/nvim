@@ -169,7 +169,7 @@ let g:vimwiki_auto_header = 1
 
 " Notes
 let g:notes_dir = "~/Dropbox/Notes"
-command! Notes execute "e " . g:notes_dir . "/index.adoc"
+
 function! Diary()
     call mkdir(expand(g:notes_dir . strftime("/Diary/%Y/%m")), "p")
     execute "e " . g:notes_dir . strftime("/Diary/%Y/%m/%F.adoc")
@@ -178,9 +178,18 @@ function! Diary()
         call append(1, "")
     endif
 endfunction
+
+function! NewNote()
+    call mkdir(expand(g:notes_dir . strftime("/%Y")), "p")
+    execute "e " . g:notes_dir . strftime("/%Y/%Y%m%d%H%M%S.adoc")
+endfunction
+
 command! Diary call Diary()
+command! NewNote call NewNote()
+command! Notes execute "e " . g:notes_dir . "/index.adoc"
+
 " Search notes: :Ns something
 command! -nargs=1 Ns execute 'Ag <args> "' . expand(g:notes_dir) . '"'
 
-
+silent! runtime site.vim
 silent! source .project.vim
