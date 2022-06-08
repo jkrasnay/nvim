@@ -107,6 +107,6 @@ nnoremap <leader>fz <cmd>Telescope find_files<cr>
 " Notes commands SPC n...
 "------------------------------------------------------------
 
-nnoremap <leader>ni :Notes<cr>
 nnoremap <leader>nd :Diary<cr>
-nnoremap <leader>nn :NewNote<cr>
+nnoremap <leader>ni :NewNote<cr>
+nnoremap <leader>nn :Notes<cr>
