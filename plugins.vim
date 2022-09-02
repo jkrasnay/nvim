@@ -130,6 +130,9 @@ Plug 'liuchengxu/vim-which-key'
 " GIT interface
 Plug 'tpope/vim-fugitive'
 
+" Repeatability
+Plug 'tpope/vim-repeat'
+
 " Snippets editor
 "
 " Snippets are in files under ~/.config/nvim/UltiSnips, which is managed by my
