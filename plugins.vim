@@ -23,10 +23,9 @@ Plug 'flazz/vim-colorschemes'
 Plug 'luochen1990/rainbow'
 
 " Fancy status line
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
-Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'kyazdani42/nvim-web-devicons'
 
 
 "------------------------------------------------------------

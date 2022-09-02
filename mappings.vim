@@ -70,6 +70,8 @@ nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.incoming_calls()<CR>
 nnoremap <silent> go    <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
+nnoremap <silent> gn    <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> gp    <cmd>lua vim.diagnostic.goto_prev()<CR>
 
 
 

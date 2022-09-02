@@ -50,10 +50,6 @@ augroup END
 
 " --- Plugin Configs ---
 
-" airline
-let g:airline_powerline_fonts=1
-let g:airline_theme='tomorrow'
-
 " ale
 let g:ale_linters = {'clojure': ['clj-kondo']} " Disable Joker linting
 
@@ -127,10 +123,6 @@ set completeopt-=preview
 let g:float_preview#docked = 1
 let g:float_preview#max_height = 40 " Still shows truncated docs for Clojure functions. Conjure problem?
 
-" lightline
-let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
-
 " lsp (native)
 lua <<EOF
   -- This `capabilities` stuff is from the nvim-cmp config, see above
@@ -139,6 +131,11 @@ lua <<EOF
     capabilities = capabilities
   }
 EOF
+
+" lualine
+lua << END
+require('lualine').setup()
+END
 
 " NERDTree
 let NERDTreeQuitOnOpen=1
