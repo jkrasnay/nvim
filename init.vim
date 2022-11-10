@@ -126,7 +126,7 @@ let g:float_preview#max_height = 40 " Still shows truncated docs for Clojure fun
 " lsp (native)
 lua <<EOF
   -- This `capabilities` stuff is from the nvim-cmp config, see above
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
   require('lspconfig').clojure_lsp.setup {
     capabilities = capabilities
   }
