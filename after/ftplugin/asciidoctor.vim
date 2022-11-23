@@ -32,6 +32,39 @@ function asciidoctor_goto_link()
 end
 EOF
 
+lua << EOF
+function find_str(s, pat)
+    i, j = string.find(s, pat)
+    if j then
+        return string.sub(s, i, j)
+    else
+        return nil
+    end
+end
+EOF
+
+lua << EOF
+function asciidoctor_insert_bullet()
+    s = vim.api.nvim_get_current_line()
+    prefix = find_str(s, "^%*+ %b[] ") or find_str(s, "^%*+ ")
+    if prefix then
+        if s == prefix then
+            -- line is blank, erase the prefix and enter insert mode
+            vim.api.nvim_feedkeys("d0i\n", "m", true)
+        elseif string.find(s, ":$") then
+            vim.api.nvim_feedkeys("a\n*" .. prefix, "m", true)
+        else
+            vim.api.nvim_feedkeys("a\n" .. prefix, "m", true)
+        end
+    else
+        vim.api.nvim_feedkeys("a\n", "m", true)
+    end
+end
+EOF
+
 nnoremap <buffer> <cr> :w<cr>:lua asciidoctor_goto_link()<cr>
 
 nnoremap <localleader>l ilink:<c-r>+[]<left>
+
+inoremap <buffer> <cr> <esc>:lua asciidoctor_insert_bullet()<cr>
+
