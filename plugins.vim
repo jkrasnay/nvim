@@ -79,6 +79,7 @@ Plug 'Olical/conjure'
 
 " Support for s-expressions
 Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
 " Write plugins in Fennel
 Plug 'Olical/aniseed', { 'tag': 'v3.8.0' }
