@@ -62,9 +62,36 @@ function asciidoctor_insert_bullet()
 end
 EOF
 
+lua << EOF
+function asciidoctor_indent_bullet()
+    s = vim.api.nvim_get_current_line()
+    if string.find(s, "^%*") then
+        line = vim.api.nvim_win_get_cursor(0)[1] - 1
+        vim.api.nvim_buf_set_text(0, line, 0, line, 0, {"*"})
+        vim.api.nvim_feedkeys("a", "m", true)
+    end
+end
+EOF
+
+lua << EOF
+function asciidoctor_undent_bullet()
+    s = vim.api.nvim_get_current_line()
+    if string.find(s, "^%*") then
+        line = vim.api.nvim_win_get_cursor(0)[1] - 1
+        vim.api.nvim_buf_set_text(0, line, 0, line, 1, {""})
+        vim.api.nvim_feedkeys("a", "m", true)
+    end
+end
+EOF
+
 nnoremap <buffer> <cr> :w<cr>:lua asciidoctor_goto_link()<cr>
 
 nnoremap <localleader>l ilink:<c-r>+[]<left>
 
-inoremap <buffer> <cr> <esc>:lua asciidoctor_insert_bullet()<cr>
 
+" Note: it's probably better here to define commands for each
+" of these, then map using <c-o>, e.g. <c-o>AsciidocInsertBullet
+
+inoremap <buffer> <cr> <esc>:lua asciidoctor_insert_bullet()<cr>
+inoremap <buffer> <c-d> <esc>:lua asciidoctor_undent_bullet()<cr>
+inoremap <buffer> <c-t> <esc>:lua asciidoctor_indent_bullet()<cr>
