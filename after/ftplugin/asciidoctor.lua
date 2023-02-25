@@ -41,11 +41,13 @@ end
 
 
 function asciidoctor_insert_bullet()
+
   s = vim.api.nvim_get_current_line()
   prefix = find_str(s, "^%*+ %b[] ") or find_str(s, "^%*+ ")
   pos = vim.api.nvim_win_get_cursor(0)
   line = pos[1]
   col = pos[2]
+
   if prefix then
     if s == prefix then
       -- line is blank, erase the prefix and enter insert mode
@@ -60,12 +62,15 @@ function asciidoctor_insert_bullet()
       vim.api.nvim_win_set_cursor(0, { line + 1, string.len(prefix) })
     end
   else
-    -- not in a list, just add a new blank line
-    vim.api.nvim_buf_set_lines(0, line, line, false, {''})
+    -- not in a list, just split the current line
+    vim.api.nvim_buf_set_lines(0, line - 1, line, false, {string.sub(s, 1, col), string.sub(s, col + 1)})
     vim.api.nvim_win_set_cursor(0, { line + 1, 0 })
   end
-  -- in case we invoked from normal mode, e.g. with 'o'
-  vim.cmd('startinsert!')
+
+  if vim.api.nvim_get_mode().mode == 'n' then
+    vim.cmd('startinsert!')
+  end
+
 end
 
 
