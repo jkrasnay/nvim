@@ -131,6 +131,9 @@ Plug 'liuchengxu/vim-which-key'
 " GIT interface
 Plug 'tpope/vim-fugitive'
 
+" Git Gutter
+Plug 'airblade/vim-gitgutter'
+
 " Repeatability
 Plug 'tpope/vim-repeat'
 
