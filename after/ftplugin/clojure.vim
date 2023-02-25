@@ -1,6 +1,8 @@
 " Functions for helping with Clojure development.
 "
 
+setlocal shiftwidth=2
+
 " Creates a namespace decl in the current buffer.
 "
 " Does not attempt to avoid an existing namespace decl.
