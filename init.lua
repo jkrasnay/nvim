@@ -50,7 +50,6 @@ vim.cmd([[
 
 require('plugins')
 require('plugin-config/asciidoctor')
-require('plugin-config/clojure-lsp')
 require('plugin-config/conjure')
 require('plugin-config/gruvbox')
 require('plugin-config/lualine')
@@ -58,6 +57,9 @@ require('plugin-config/nerdtree')
 require('plugin-config/nvim-cmp')
 require('plugin-config/rainbow')
 require('plugin-config/telescope')
+
+require('lsp-config/clojure-lsp')
+require('lsp-config/lua-ls')
 
 require('keymaps')
 

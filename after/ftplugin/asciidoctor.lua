@@ -3,13 +3,13 @@ vim.wo.conceallevel = 3
 vim.wo.spell = true
 
 
-function asciidoctor_goto_link()
-  s = vim.api.nvim_get_current_line()
-  _,j1 = string.find(s, "link:")
-  _,j2 = string.find(s, "xref:")
-  j = j1 or j2
+local function asciidoctor_goto_link()
+  local s = vim.api.nvim_get_current_line()
+  local _,j1 = string.find(s, "link:")
+  local _,j2 = string.find(s, "xref:")
+  local j = j1 or j2
   if j then
-    i,_ = string.find(string.sub(s, j+1, -1), "http")
+    local i,_ = string.find(string.sub(s, j+1, -1), "http")
     -- g0  - go to first column
     -- l   - move right by 'j' columns
     -- vt[ - visual select to the next [ char
@@ -30,8 +30,8 @@ function asciidoctor_goto_link()
 end
 
 
-function find_str(s, pat)
-  i, j = string.find(s, pat)
+local function find_str(s, pat)
+  local i, j = string.find(s, pat)
   if j then
     return string.sub(s, i, j)
   else
@@ -40,13 +40,13 @@ function find_str(s, pat)
 end
 
 
-function asciidoctor_insert_bullet()
+local function asciidoctor_insert_bullet()
 
-  s = vim.api.nvim_get_current_line()
-  prefix = find_str(s, "^%*+ %b[] ") or find_str(s, "^%*+ ")
-  pos = vim.api.nvim_win_get_cursor(0)
-  line = pos[1]
-  col = pos[2]
+  local s = vim.api.nvim_get_current_line()
+  local prefix = find_str(s, "^%*+ %b[] ") or find_str(s, "^%*+ ")
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local line = pos[1]
+  local col = pos[2]
 
   if prefix then
     if s == prefix then
@@ -74,19 +74,19 @@ function asciidoctor_insert_bullet()
 end
 
 
-function asciidoctor_indent_bullet()
-  s = vim.api.nvim_get_current_line()
+local function asciidoctor_indent_bullet()
+  local s = vim.api.nvim_get_current_line()
   if string.find(s, "^%*") then
-    line = vim.api.nvim_win_get_cursor(0)[1] - 1
+    local line = vim.api.nvim_win_get_cursor(0)[1] - 1
     vim.api.nvim_buf_set_text(0, line, 0, line, 0, {"*"})
   end
 end
 
 
-function asciidoctor_undent_bullet()
-  s = vim.api.nvim_get_current_line()
+local function asciidoctor_undent_bullet()
+  local s = vim.api.nvim_get_current_line()
   if string.find(s, "^%*") then
-    line = vim.api.nvim_win_get_cursor(0)[1] - 1
+    local line = vim.api.nvim_win_get_cursor(0)[1] - 1
     vim.api.nvim_buf_set_text(0, line, 0, line, 1, {""})
   end
 end

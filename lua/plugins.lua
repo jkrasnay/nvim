@@ -57,7 +57,6 @@ Plug 'tpope/vim-projectionist'
 -- LSP
 --
 
--- Configs for nvim built-in LSP client
 Plug 'neovim/nvim-lspconfig'
 
 
