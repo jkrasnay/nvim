@@ -4,6 +4,7 @@ vim.wo.spell = true
 
 
 local function asciidoctor_goto_link()
+  vim.cmd('update')
   local s = vim.api.nvim_get_current_line()
   local _,j1 = string.find(s, "link:")
   local _,j2 = string.find(s, "xref:")
@@ -92,7 +93,7 @@ local function asciidoctor_undent_bullet()
 end
 
 
-vim.keymap.set('n', '<cr>', ':w<cr>:lua asciidoctor_goto_link()<cr>', { buffer = true })
+vim.keymap.set('n', '<cr>', asciidoctor_goto_link, { buffer = true })
 vim.keymap.set('i', '<cr>', asciidoctor_insert_bullet, { buffer = true })
 vim.keymap.set('n', 'o', asciidoctor_insert_bullet, { buffer = true })
 vim.keymap.set('i', '<c-d>', asciidoctor_undent_bullet, { buffer = true })

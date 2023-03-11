@@ -97,6 +97,6 @@ map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
 -- Notes commands SPC n...
 --------------------------------------------------------------
 
-map('n', '<leader>nd', ':Diary<cr>',   { silent = true })
-map('n', '<leader>ni', ':NewNote<cr>', { silent = true })
-map('n', '<leader>nn', ':Notes<cr>',   { silent = true })
+map('n', '<leader>nd', ':lua require("notes").new_diary_entry()<cr>', { silent = true })
+map('n', '<leader>ni', ':lua require("notes").new_note()<cr>',        { silent = true })
+map('n', '<leader>nn', ':lua require("notes").edit_index()<cr>',      { silent = true })
