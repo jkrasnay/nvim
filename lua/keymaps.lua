@@ -75,11 +75,17 @@ map('n', 'gp',    '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
 --============================================================
 
 --------------------------------------------------------------
+-- Buffer commands SPC b...
+--------------------------------------------------------------
+--
+map('n', '<leader>bd', ':bp|bd#<cr>', { silent = true }) -- delete buffer w/o closing window
+
+--------------------------------------------------------------
 -- Quickfix commands SPC c...
 --------------------------------------------------------------
 --
-map('n', '<leader>cn', ':cn<cr>', { silent = true })
-map('n', '<leader>cp', ':cp<cr>', { silent = true })
+map('n', '<leader>cn', ':up|cn<cr>', { silent = true })
+map('n', '<leader>cp', ':up|cp<cr>', { silent = true })
 
 
 --------------------------------------------------------------
@@ -100,3 +106,4 @@ map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
 map('n', '<leader>nd', ':lua require("notes").new_diary_entry()<cr>', { silent = true })
 map('n', '<leader>ni', ':lua require("notes").new_note()<cr>',        { silent = true })
 map('n', '<leader>nn', ':lua require("notes").edit_index()<cr>',      { silent = true })
+map('n', '<leader>nl', ':lua require("notes").list_notes()<cr>',      { silent = true })

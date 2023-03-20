@@ -26,32 +26,99 @@ function M.new_note()
   print('new note 2')
 end
 
+-- Experimental: generate a read-only buffer
+function M.show_note_list()
+  vim.cmd([[
+  top new
+  file notelist
+  set bufhidden=delete
+  set buftype=nofile
+  set filetype=asciidoctor
+  set nonumber
+  ]])
+  --[[
+  vim.api.nvim_put({'= Note List'}, 'l', false, true)
+  vim.api.nvim_put({'* foo'}, 'l', true, false)
+  vim.api.nvim_put({'* bar'}, 'l', true, false)
+  vim.api.nvim_put({'* baz'}, 'l', true, false)
+  --]]
+  --
+  local lines = {
+    '= Note List',
+    '',
+    '* foo2',
+    '* bar2',
+    '* baz2',
+  }
+  vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+  -- TODO hrm, I think I like nvim_put better, since it remembers where you're at
+  -- so you can just keep calling it
+  -- TODO check if buffer exists and re-create if necessary
+  --   * see nvim_list_bufs() to get a list of buffers
+  --   * also check nvim_buf_is_loaded() to confirm it's still valid
+  --   * vim.fn.bufwinnr('notelist') might help here
+  --   * gotta detect if the buffer is visible (currently attached to a window)
+end
+
+
+-- Executes the given command and returns the stdout
+--
+local function exec(cmd)
+  local handle = assert(io.popen(cmd))
+  if handle ~= nil then
+    local result = handle:read("*a")
+    handle:close()
+    return result
+  else
+    print('Error running command: ' .. cmd)
+    return nil
+  end
+end
+
+M.exec = exec
+
+
+-- Works like Clojure's `map`
+--
+local function map(tbl, f)
+  local t = {}
+  for k,v in pairs(tbl) do
+    t[k] = f(v)
+  end
+  return t
+end
+
+
+function M.list_notes()
+
+  local notes_json = vim.fn.system("note-index --dir " .. notes_dir .. " list")
+  local notes = vim.json.decode(notes_json)
+
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+
+  local list_notes = function(opts)
+    opts = opts or {}
+    pickers.new(opts, {
+        finder = finders.new_table({
+          results = notes,
+          entry_maker = function(note)
+            return {
+              value = note,
+              display = note.title,
+              ordinal = note.title,
+              path = notes_dir .. '/' .. note.path,
+              }
+            end,
+        }),
+        previewer = conf.file_previewer(opts),
+        sorter = conf.generic_sorter(opts),
+      }):find()
+  end
+
+  list_notes()
+
+end
+
 return M
-
-
-
---[[
-let g:notes_dir = "~/Dropbox/Notes"
-
-function! Diary()
-    call mkdir(expand(g:notes_dir . strftime("/Diary/%Y/%m")), "p")
-    execute "e " . g:notes_dir . strftime("/Diary/%Y/%m/%F.adoc")
-    if line("$") == 1
-        call append(0, "= " . strftime("%F"))
-        call append(1, "")
-    endif
-endfunction
-
-function! NewNote()
-    call mkdir(expand(g:notes_dir . strftime("/%Y")), "p")
-    execute "e " . g:notes_dir . strftime("/%Y/%Y%m%d%H%M%S.adoc")
-endfunction
-
-command! Diary call Diary()
-command! NewNote call NewNote()
-command! Notes execute "e " . g:notes_dir . "/index.adoc"
-
-" Search notes: :Ns something
-command! -nargs=1 Ns execute 'Ag <args> "' . expand(g:notes_dir) . '"'
-
---]]
