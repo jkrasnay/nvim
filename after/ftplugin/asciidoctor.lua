@@ -3,7 +3,7 @@ vim.wo.conceallevel = 3
 vim.wo.spell = true
 
 
-local function asciidoctor_goto_link()
+local function goto_link()
   vim.cmd('update')
   local s = vim.api.nvim_get_current_line()
   local _,j1 = string.find(s, "link:")
@@ -41,7 +41,7 @@ local function find_str(s, pat)
 end
 
 
-local function asciidoctor_insert_bullet()
+local function insert_bullet()
 
   local s = vim.api.nvim_get_current_line()
   local prefix = find_str(s, "^%*+ %b[] ") or find_str(s, "^%*+ ")
@@ -49,33 +49,42 @@ local function asciidoctor_insert_bullet()
   local line = pos[1]
   local col = pos[2]
 
-  if prefix then
-    if s == prefix then
-      -- line is blank, erase the prefix and enter insert mode
-      vim.api.nvim_buf_set_text(0, line - 1, 0, line - 1, string.len(s), {""})
-    elseif string.find(s, ":$") then
-      -- line ends with a colon, indent the bullet
-      vim.api.nvim_buf_set_lines(0, line, line, false, {"*" .. prefix})
-      vim.api.nvim_win_set_cursor(0, { line + 1, string.len(prefix) + 1 })
-    else
-      -- add a line with a new bullet
-      vim.api.nvim_buf_set_lines(0, line, line, false, {prefix})
-      vim.api.nvim_win_set_cursor(0, { line + 1, string.len(prefix) })
-    end
+  local normal_mode = (vim.api.nvim_get_mode().mode == 'n')
+
+  local this_line
+  local next_line
+
+  if normal_mode then
+    this_line = s
+    next_line = ''
   else
-    -- not in a list, just split the current line
-    vim.api.nvim_buf_set_lines(0, line - 1, line, false, {string.sub(s, 1, col), string.sub(s, col + 1)})
-    vim.api.nvim_win_set_cursor(0, { line + 1, 0 })
+    this_line = string.sub(s, 1, col)
+    next_line = string.sub(s, col + 1)
   end
 
-  if vim.api.nvim_get_mode().mode == 'n' then
+  local indent = 0
+  if prefix then
+    indent = string.len(prefix)
+  end
+
+  if prefix and s == prefix then
+     this_line = ''
+     indent = 0
+  elseif prefix then
+     next_line = prefix .. next_line
+  end
+
+  vim.api.nvim_buf_set_lines(0, line - 1, line, false, { this_line, next_line })
+  vim.api.nvim_win_set_cursor(0, { line + 1, indent })
+
+  if normal_mode then
     vim.cmd('startinsert!')
   end
 
 end
 
 
-local function asciidoctor_indent_bullet()
+local function indent_bullet()
   local s = vim.api.nvim_get_current_line()
   if string.find(s, "^%*") then
     local line = vim.api.nvim_win_get_cursor(0)[1] - 1
@@ -84,7 +93,7 @@ local function asciidoctor_indent_bullet()
 end
 
 
-local function asciidoctor_undent_bullet()
+local function undent_bullet()
   local s = vim.api.nvim_get_current_line()
   if string.find(s, "^%*") then
     local line = vim.api.nvim_win_get_cursor(0)[1] - 1
@@ -93,8 +102,8 @@ local function asciidoctor_undent_bullet()
 end
 
 
-vim.keymap.set('n', '<cr>', asciidoctor_goto_link, { buffer = true })
-vim.keymap.set('i', '<cr>', asciidoctor_insert_bullet, { buffer = true })
-vim.keymap.set('n', 'o', asciidoctor_insert_bullet, { buffer = true })
-vim.keymap.set('i', '<c-d>', asciidoctor_undent_bullet, { buffer = true })
-vim.keymap.set('i', '<c-t>', asciidoctor_indent_bullet, { buffer = true })
+vim.keymap.set('n', '<cr>', goto_link, { buffer = true })
+vim.keymap.set('i', '<cr>', insert_bullet, { buffer = true })
+vim.keymap.set('n', 'o', insert_bullet, { buffer = true })
+vim.keymap.set('i', '<c-d>', undent_bullet, { buffer = true })
+vim.keymap.set('i', '<c-t>', indent_bullet, { buffer = true })
