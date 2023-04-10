@@ -98,10 +98,8 @@ function M.list_notes()
   local finders = require("telescope.finders")
   local conf = require("telescope.config").values
 
-  local list_notes = function(opts)
-    opts = opts or {}
-    pickers.new(opts, {
-        finder = finders.new_table({
+  pickers.new({
+      finder = finders.new_table({
           results = notes,
           entry_maker = function(note)
             return {
@@ -109,15 +107,13 @@ function M.list_notes()
               display = note.title,
               ordinal = note.title,
               path = notes_dir .. '/' .. note.path,
-              }
-            end,
+            }
+          end,
         }),
-        previewer = conf.file_previewer(opts),
-        sorter = conf.generic_sorter(opts),
-      }):find()
-  end
-
-  list_notes()
+      previewer = conf.file_previewer({}),
+      sorter = conf.generic_sorter({}),
+      layout_strategy = 'vertical',
+    }):find()
 
 end
 
