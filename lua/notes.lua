@@ -5,6 +5,13 @@
 
 local notes_dir = "~/Dropbox/Notes"
 
+local function note_index(args)
+  if type(args) == 'table' then
+    args = table.concat(args, ' ')
+  end
+  return vim.fn.system('note-index --dir ' .. notes_dir .. ' ' .. args)
+end
+
 local M = {}
 
 function M.edit_index()
@@ -91,7 +98,7 @@ end
 
 function M.list_notes()
 
-  local notes_json = vim.fn.system("note-index --dir " .. notes_dir .. " list")
+  local notes_json = note_index('list')
   local notes = vim.json.decode(notes_json)
 
   local pickers = require("telescope.pickers")
@@ -115,6 +122,12 @@ function M.list_notes()
       layout_strategy = 'vertical',
     }):find()
 
+end
+
+function M.index_notes()
+  print('Indexing notes...')
+  local result = note_index('index')
+  print(result)
 end
 
 return M

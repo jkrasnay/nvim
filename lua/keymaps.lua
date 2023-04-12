@@ -107,3 +107,4 @@ map('n', '<leader>nd', ':lua require("notes").new_diary_entry()<cr>', { silent =
 map('n', '<leader>ni', ':lua require("notes").new_note()<cr>',        { silent = true })
 map('n', '<leader>nn', ':lua require("notes").edit_index()<cr>',      { silent = true })
 map('n', '<leader>nl', ':lua require("notes").list_notes()<cr>',      { silent = true })
+map('n', '<leader>nx', ':lua require("notes").index_notes()<cr>',      { silent = true })
