@@ -7,9 +7,6 @@ local map = vim.api.nvim_set_keymap
 
 map('i', 'jj', '<Esc>', { noremap = true })
 
-map('n', '<leader>', [[:<c-u>WhichKey '<Space>'<CR>]], { noremap = true })
-map('n', '<localleader>', [[:<c-u>WhichKey  ','<CR>]], { noremap = true })
-
 -- System clipboard
 map('i', '<c-v>', '<c-r>+', { noremap = true })
 --map('v', '<c-c>., '"+y', { noremap = true })

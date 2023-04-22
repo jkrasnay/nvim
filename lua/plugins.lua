@@ -129,9 +129,6 @@ Plug 'weirongxu/plantuml-previewer.vim'
 -- Alignment plugin
 Plug 'godlygeek/tabular'
 
--- Show menu of completions of multi-keystroke mappings
-Plug 'liuchengxu/vim-which-key'
-
 -- GIT interface
 Plug 'tpope/vim-fugitive'
 
