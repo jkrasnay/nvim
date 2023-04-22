@@ -149,5 +149,8 @@ Plug 'SirVer/ultisnips'
 -- Provides :Bdelete and :Bwipeout commands
 Plug 'famiu/bufdelete.nvim'
 
+-- Fancy input/select replacement
+Plug 'stevearc/dressing.nvim'
+
 vim.call('plug#end')
 
