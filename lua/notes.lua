@@ -5,6 +5,7 @@
 
 local notes_dir = "~/Dropbox/Notes"
 
+
 local function note_index(args)
   if type(args) == 'table' then
     args = table.concat(args, ' ')
@@ -12,26 +13,45 @@ local function note_index(args)
   return vim.fn.system('note-index --dir ' .. notes_dir .. ' ' .. args)
 end
 
+
+local function is_note(path)
+  return string.match(path, '^' .. vim.fn.expand(notes_dir))
+end
+
+
 local M = {}
+
 
 function M.edit_index()
   vim.cmd('e ' .. notes_dir .. '/index.adoc')
   --command! Notes execute "e " . g:notes_dir . "/index.adoc"
 end
 
-function M.new_diary_entry()
-  vim.fn.mkdir(vim.fn.expand(notes_dir .. vim.fn.strftime("/Diary/%Y/%m")), "p")
-  vim.api.nvim_command("e " .. notes_dir .. vim.fn.strftime("/Diary/%Y/%m/%F.adoc"))
-  if vim.fn.line("$") == 1 then
-    -- TODO add the date to the top of the file
+
+function M.delete_note()
+  local path = vim.fn.expand('%:p')
+  if is_note(path) then
+    vim.ui.input('Delete this note? Type "yes" to confirm: ',
+      function (input)
+        if input == 'yes' then
+          vim.fn.execute('Bdelete') -- requires 'famiu/bufdelete.nvim' plugin
+          vim.fn.delete(path)
+          note_index('index')
+          print('Deleted note')
+        else
+          print('Aborted')
+        end
+      end)
   end
 end
+
 
 function M.new_note()
   vim.fn.mkdir(vim.fn.expand(notes_dir .. vim.fn.strftime("/%Y")), "p")
   vim.api.nvim_command("e " .. notes_dir .. vim.fn.strftime("/%Y/%Y%m%d%H%M%S.adoc"))
   print('new note 2')
 end
+
 
 -- Experimental: generate a read-only buffer
 function M.show_note_list()

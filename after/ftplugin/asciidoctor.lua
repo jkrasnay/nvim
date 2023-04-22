@@ -107,3 +107,5 @@ vim.keymap.set('i', '<cr>', insert_bullet, { buffer = true })
 vim.keymap.set('n', 'o', insert_bullet, { buffer = true })
 vim.keymap.set('i', '<c-d>', undent_bullet, { buffer = true })
 vim.keymap.set('i', '<c-t>', indent_bullet, { buffer = true })
+
+vim.keymap.set('n', '<localleader>d', function () require('notes').delete_note() end, { buffer = true })
