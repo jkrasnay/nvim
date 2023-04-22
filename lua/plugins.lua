@@ -145,5 +145,9 @@ Plug 'tpope/vim-repeat'
 --
 Plug 'SirVer/ultisnips'
 
+-- Delete buffers without closing the window
+-- Provides :Bdelete and :Bwipeout commands
+Plug 'famiu/bufdelete.nvim'
+
 vim.call('plug#end')
 
