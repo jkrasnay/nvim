@@ -138,12 +138,10 @@ Plug 'airblade/vim-gitgutter'
 -- Repeatability
 Plug 'tpope/vim-repeat'
 
--- Snippets editor
---
--- Snippets are in files under ~/.config/nvim/UltiSnips, which is managed by my
--- dotfiles project. They are immediately loaded upon save.
---
-Plug 'SirVer/ultisnips'
+-- Snippets
+Plug('L3MON4D3/LuaSnip', {tag='v1.*',
+    --['do']=function() vim.call('make', 'install_jsregexp') end
+  })
 
 -- Delete buffers without closing the window
 -- Provides :Bdelete and :Bwipeout commands
