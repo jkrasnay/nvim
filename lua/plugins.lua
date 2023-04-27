@@ -143,6 +143,8 @@ Plug('L3MON4D3/LuaSnip', {tag='v1.*',
     --['do']=function() vim.call('make', 'install_jsregexp') end
   })
 
+Plug 'saadparwaiz1/cmp_luasnip'
+
 -- Delete buffers without closing the window
 -- Provides :Bdelete and :Bwipeout commands
 Plug 'famiu/bufdelete.nvim'
