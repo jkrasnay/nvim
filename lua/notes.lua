@@ -3,7 +3,7 @@
 -- These are all asciidoc files
 --
 
-local notes_dir = "~/Dropbox/Notes"
+local notes_dir = vim.fs.normalize("~/Dropbox/Notes")
 
 
 local function note_index(args)
@@ -15,7 +15,12 @@ end
 
 
 local function is_note(path)
-  return string.match(path, '^' .. vim.fn.expand(notes_dir))
+  for dir in vim.fs.parents(path) do
+    if dir == notes_dir then
+      return true
+    end
+  end
+  return false
 end
 
 
@@ -42,6 +47,8 @@ function M.delete_note()
           print('Aborted')
         end
       end)
+  else
+    print('Not a note')
   end
 end
 
