@@ -10,12 +10,12 @@ end
 -- or nil if the file is not found on the nvim runtime path for Lua files.
 --
 local function current_lua_package()
-  local curr_file = vim.fn.expand('%:p')
+  local curr_file = vim.fs.normalize(vim.fn.expand('%:p'))
   local rel_path
   local count = 0
   for _, p in ipairs(vim.api.nvim_list_runtime_paths()) do
     count = count + 1
-    local plua = p .. '/lua'
+    local plua = vim.fs.normalize(p) .. '/lua'
     if string_starts_with(curr_file, plua) then
       rel_path = string.sub(curr_file, string.len(plua) + 2, -1)
       break
