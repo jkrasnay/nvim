@@ -61,6 +61,7 @@ require('plugin-config/telescope')
 
 require('lsp-config/clojure-lsp')
 require('lsp-config/lua-ls')
+require('lsp-config/tsserver')
 
 require('keymaps')
 
