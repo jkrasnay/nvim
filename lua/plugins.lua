@@ -52,6 +52,9 @@ Plug 'rking/ag.vim'
 -- Alternate between source and test files
 Plug 'tpope/vim-projectionist'
 
+-- Quickly jump around the file
+Plug 'ggandor/leap.nvim'
+
 
 --------------------------------------------------------------
 -- LSP
@@ -66,6 +69,7 @@ Plug 'neovim/nvim-lspconfig'
 
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
@@ -93,19 +97,6 @@ Plug 'bakpakin/fennel.vim'
 
 -- Asciidoc
 Plug 'habamax/vim-asciidoctor'
-
-
---------------------------------------------------------------
--- Productivity
---
-
--- Show calendars, integrates with vimwiki
-Plug 'mattn/calendar-vim'
-
--- Vim Wiki
---
--- <leader>ww to open the wiki
-Plug 'vimwiki/vimwiki'
 
 
 --------------------------------------------------------------
@@ -137,6 +128,9 @@ Plug 'airblade/vim-gitgutter'
 
 -- Repeatability
 Plug 'tpope/vim-repeat'
+
+-- Surround
+Plug 'tpope/vim-surround'
 
 -- Snippets
 Plug('L3MON4D3/LuaSnip', {tag='v1.*',
