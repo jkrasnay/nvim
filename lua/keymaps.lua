@@ -7,6 +7,11 @@ local map = vim.api.nvim_set_keymap
 
 map('i', 'jj', '<Esc>', { noremap = true })
 
+map('n', ';', ':', { noremap = true })
+map('n', ':', ';', { noremap = true })
+map('v', ';', ':', { noremap = true })
+map('v', ':', ';', { noremap = true })
+
 -- System clipboard
 map('i', '<c-v>', '<c-r>+', { noremap = true })
 --map('v', '<c-c>., '"+y', { noremap = true })
@@ -18,7 +23,7 @@ map('c', '<c-e>', '<end>', { noremap = true })
 map('i', '<C-Space>', 'compe#complete()', { expr = true })
 
 -- Clear highlight with \ (opposite of /)
-map('n', '\\', ':noh<cr>', { silent = true})
+map('n', '\\', '<cmd>noh<cr>', { silent = true})
 
 -- Mappings to quickly move through the results
 --
@@ -112,8 +117,8 @@ map('n', '<leader>cp', ':up|cp<cr>', { silent = true })
 -- File commands SPC f...
 --------------------------------------------------------------
 
-map('n', '<leader>ft', ':NERDTreeToggle<cr>',           { silent = true })
-map('n', '<leader>ff', ':NERDTreeFind<cr>',             { silent = true })
+map('n', '<leader>ft', '<cmd>NERDTreeToggle<cr>',           { silent = true })
+map('n', '<leader>ff', '<cmd>NERDTreeFind<cr>',             { silent = true })
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>',  {})
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>',    {})
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>',  {})
