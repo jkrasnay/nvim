@@ -34,16 +34,16 @@ map('n', '<C-k>', '<c-w>k', { silent = true })
 map('n', '<C-l>', '<c-w>l', { silent = true })
 
 -- Use shift + hjkl to resize windows
-map('n', '<s-down>',  ':resize -2<CR>', { silent = true })
-map('n', '<s-up>',    ':resize +2<CR>', { silent = true })
-map('n', '<s-left>',  ':vertical resize -2<CR>', { silent = true })
-map('n', '<s-right>', ':vertical resize +2<CR>', { silent = true })
+map('n', '<s-down>',  '<cmd>resize -2<CR>', { silent = true })
+map('n', '<s-up>',    '<cmd>resize +2<CR>', { silent = true })
+map('n', '<s-left>',  '<cmd>vertical resize -2<CR>', { silent = true })
+map('n', '<s-right>', '<cmd>vertical resize +2<CR>', { silent = true })
 
 -- Escape insert mode in the terminal
 map('t', '<esc>', '<c-\\><c-n>', {})
 
 -- Format tables using pipe separators
-map('v', '|', ':Tab /|<cr>', { silent = true })
+map('v', '|', '<cmd>Tab /|<cr>', { silent = true })
 
 -- Show the given buffer along the top of the tab
 vim.cmd(':command! -nargs=? Top :top :new | :b <args>')
@@ -103,14 +103,14 @@ end, { silent = true })
 -- Buffer commands SPC b...
 --------------------------------------------------------------
 --
-map('n', '<leader>bd', ':bp|bd#<cr>', { silent = true }) -- delete buffer w/o closing window
+map('n', '<leader>bd', '<cmd>bp|bd#<cr>', { silent = true }) -- delete buffer w/o closing window
 
 --------------------------------------------------------------
 -- Quickfix commands SPC c...
 --------------------------------------------------------------
 --
-map('n', '<leader>cn', ':up|cn<cr>', { silent = true })
-map('n', '<leader>cp', ':up|cp<cr>', { silent = true })
+map('n', '<leader>cn', '<cmd>up|cn<cr>', { silent = true })
+map('n', '<leader>cp', '<cmd>up|cp<cr>', { silent = true })
 
 
 --------------------------------------------------------------
@@ -128,8 +128,8 @@ map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
 -- Notes commands SPC n...
 --------------------------------------------------------------
 
-map('n', '<leader>nd', ':lua require("notes").new_diary_entry()<cr>', { silent = true })
-map('n', '<leader>ni', ':lua require("notes").new_note()<cr>',        { silent = true })
-map('n', '<leader>nn', ':lua require("notes").edit_index()<cr>',      { silent = true })
-map('n', '<leader>nl', ':lua require("notes").list_notes()<cr>',      { silent = true })
-map('n', '<leader>nx', ':lua require("notes").index_notes()<cr>',      { silent = true })
+map('n', '<leader>nd', '<cmd>lua require("notes").new_diary_entry()<cr>', { silent = true })
+map('n', '<leader>ni', '<cmd>lua require("notes").new_note()<cr>',        { silent = true })
+map('n', '<leader>nn', '<cmd>lua require("notes").edit_index()<cr>',      { silent = true })
+map('n', '<leader>nl', '<cmd>lua require("notes").list_notes()<cr>',      { silent = true })
+map('n', '<leader>nx', '<cmd>lua require("notes").index_notes()<cr>',      { silent = true })
