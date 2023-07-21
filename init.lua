@@ -57,6 +57,7 @@ require('plugin-config/lualine')
 require('plugin-config/luasnip')
 require('plugin-config/nerdtree')
 require('plugin-config/nvim-cmp')
+require('plugin-config/oil')
 require('plugin-config/rainbow')
 require('plugin-config/telescope')
 

@@ -3,14 +3,12 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
 map('i', 'jj', '<Esc>', { noremap = true })
 
-map('n', ';', ':', { noremap = true })
-map('n', ':', ';', { noremap = true })
-map('v', ';', ':', { noremap = true })
-map('v', ':', ';', { noremap = true })
+map({'n','v'}, ';', ':', { noremap = true })
+map({'n','v'}, ':', ';', { noremap = true })
 
 -- System clipboard
 map('i', '<c-v>', '<c-r>+', { noremap = true })
@@ -117,12 +115,19 @@ map('n', '<leader>cp', '<cmd>up|cp<cr>', { silent = true })
 -- File commands SPC f...
 --------------------------------------------------------------
 
-map('n', '<leader>ft', '<cmd>NERDTreeToggle<cr>',           { silent = true })
-map('n', '<leader>ff', '<cmd>NERDTreeFind<cr>',             { silent = true })
+--map('n', '<leader>ft', '<cmd>NERDTreeToggle<cr>',           { silent = true })
+--map('n', '<leader>ff', '<cmd>NERDTreeFind<cr>',             { silent = true })
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>',  {})
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>',    {})
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>',  {})
 map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
+
+--------------------------------------------------------------
+-- Git commands SPC g...
+--------------------------------------------------------------
+
+map('n', '<leader>gg', '<cmd>Git<cr>', { silent = true })
+map('n', '<leader>gp', '<cmd>Git push<cr>', { silent = true })
 
 --------------------------------------------------------------
 -- Notes commands SPC n...
@@ -131,5 +136,15 @@ map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
 map('n', '<leader>nd', '<cmd>lua require("notes").new_diary_entry()<cr>', { silent = true })
 map('n', '<leader>ni', '<cmd>lua require("notes").new_note()<cr>',        { silent = true })
 map('n', '<leader>nn', '<cmd>lua require("notes").edit_index()<cr>',      { silent = true })
-map('n', '<leader>nl', '<cmd>lua require("notes").list_notes()<cr>',      { silent = true })
+--map('n', '<leader>nl', '<cmd>lua require("notes").list_notes()<cr>',      { silent = true })
+map('n', '<leader>nl', require("notes").list_notes,      { silent = true })
 map('n', '<leader>nx', '<cmd>lua require("notes").index_notes()<cr>',      { silent = true })
+
+--------------------------------------------------------------
+-- Oil commands SPC o...
+--------------------------------------------------------------
+
+map('n', '<leader>oo', require('oil').open, { silent = true })
+map('n', '<leader>oh', function() require('oil').open('~') end, { silent = true })
+map('n', '<leader>ov', function() require('oil').open(vim.fn.stdpath('config')) end, { silent = true })
+map('n', '<leader>ow', function() require('oil').open('~/ws') end, { silent = true })

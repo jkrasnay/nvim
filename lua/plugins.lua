@@ -14,7 +14,25 @@ vim.call('plug#begin', '~/.local/share/nvim/plugged')
 --   https://github.com/liuchengxu/vista.vim
 --
 
-Plug '~/ws/luhmann.nvim'
+
+--------------------------------------------------------------
+-- Utilities
+--
+-- Should prolly switch to packer or lazy at some point
+-- so we can properly track dependencies
+
+-- Used by telescope
+Plug 'nvim-lua/popup.nvim'
+
+-- Used by telescope, neo-tree
+Plug 'nvim-lua/plenary.nvim'
+
+-- Used by neo-tree, lualine?
+Plug 'nvim-tree/nvim-web-devicons'
+
+-- Used by neo-tree
+Plug 'MunifTanjim/nui.nvim'
+
 
 --------------------------------------------------------------
 -- Appearance
@@ -30,7 +48,6 @@ Plug 'luochen1990/rainbow'
 Plug 'nvim-lualine/lualine.nvim'
 
 -- If you want to have icons in your statusline choose one of these
-Plug 'kyazdani42/nvim-web-devicons'
 
 
 --------------------------------------------------------------
@@ -40,9 +57,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 -- File browser
 Plug 'scrooloose/nerdtree'
 
+Plug 'stevearc/oil.nvim'
+
 -- Super fuzzy search in native Lua
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 -- Requires silver searcher to be installed
