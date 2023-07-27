@@ -65,6 +65,7 @@ require('lsp-config/clojure-lsp')
 require('lsp-config/lua-ls')
 require('lsp-config/tsserver')
 
+require('projects')
 require('keymaps')
 
 vim.cmd([[
