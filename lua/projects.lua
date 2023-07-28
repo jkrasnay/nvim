@@ -8,6 +8,8 @@
 -- Maybe some way to bookmark a project, and to quickly open and/or switch to that project's tab
 
 
+-- Set up tabline ------------------------------------------------------------
+
 -- See: https://stackoverflow.com/a/76544483
 function MyTabLine()
     local tabline = ""
@@ -30,3 +32,51 @@ end
 
 vim.go.showtabline = 2  -- always show tabline
 vim.go.tabline = "%!v:lua.MyTabLine()"
+
+-- Module functions ------------------------------------------------------------
+
+--- Returns the number of the tab whose cwd is `dir_name`, or nil
+local function tab_for_dir(dir_name)
+    for index = 1, vim.fn.tabpagenr('$') do
+        local tab_dir = vim.fn.getcwd(-1, index)
+        if tab_dir == dir_name then
+            return index
+        end
+    end
+    return nil
+end
+
+--- Changes to the tab whose tcd is `dir_name`, creating it if necessary
+local function open_project(dir_name)
+    local tab_nr = tab_for_dir(dir_name)
+    if tab_nr then
+        vim.cmd.normal(tab_nr .. 'gt')
+    else
+        vim.cmd('$tabnew')
+        vim.cmd('tcd ' .. dir_name)
+        require('oil').open(dir_name)
+    end
+end
+
+local function select_project()
+    local items = {}
+    if vim.g.projects then
+        for _, dir in ipairs(vim.g.projects) do
+            table.insert(items, vim.fn.expand(dir))
+        end
+    end
+    table.insert(items, vim.fn.stdpath('config'))
+
+    vim.ui.select(items, { prompt = 'Select Project' },
+        function(item)
+            if item then
+                open_project(item)
+            end
+        end)
+end
+
+return {
+    tab_for_dir = tab_for_dir,
+    open_project = open_project,
+    select_project = select_project
+}

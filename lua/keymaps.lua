@@ -146,5 +146,11 @@ map('n', '<leader>nx', '<cmd>lua require("notes").index_notes()<cr>',      { sil
 
 map('n', '<leader>oo', require('oil').open, { silent = true })
 map('n', '<leader>oh', function() require('oil').open('~') end, { silent = true })
-map('n', '<leader>ov', function() require('oil').open(vim.fn.stdpath('config')) end, { silent = true })
+map('n', '<leader>op', function() require('oil').open(vim.fn.getcwd(-1,0)) end, { silent = true })
 map('n', '<leader>ow', function() require('oil').open('~/ws') end, { silent = true })
+
+--------------------------------------------------------------
+-- Project commands SPC p...
+--------------------------------------------------------------
+
+map('n', '<leader>p', require('projects').select_project, { silent = true })

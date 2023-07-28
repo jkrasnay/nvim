@@ -48,6 +48,15 @@ vim.cmd([[
   syntax on
 ]])
 
+-- Support for running the same config on different machines.
+--
+-- Here we require the file hosts/{hostname}.lua, which implements host-specific
+-- things, e.g. setting global variables to customize later scripts.
+--
+-- My laptop returns "MacBook-Air.local", but Lua doesn't like the ".local" part
+local hostname = string.gsub(vim.fn.hostname(), '.local', '')
+pcall(require, 'hosts/' .. hostname)
+
 require('plugins')
 require('plugin-config/asciidoctor')
 require('plugin-config/conjure')
@@ -69,6 +78,5 @@ require('projects')
 require('keymaps')
 
 vim.cmd([[
-silent! runtime site.vim
 silent! source .project.vim
 ]])
