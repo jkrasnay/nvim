@@ -11,7 +11,7 @@ local function assert_clojure()
   end
 end
 
-local function clojure_command(cmd, src)
+local function create_clojure_command(cmd, src)
   vim.api.nvim_create_user_command(cmd,
     function()
       assert_erbium()
@@ -20,33 +20,24 @@ local function clojure_command(cmd, src)
     end, {})
 end
 
+local function create_tool_buffer(name, cmd)
+    vim.cmd.term()
+    vim.cmd.file(name)
+    vim.fn.jobsend(vim.b.terminal_job_id, cmd)
+end
+
 vim.api.nvim_create_user_command('ErbUp',
   function()
-
     assert_erbium()
-
     vim.cmd.vnew()
-
-    vim.cmd.term()
-    vim.cmd.file('repl')
-    vim.fn.jobsend(vim.b.terminal_job_id, 'bb nrepl\n')
-
-    vim.cmd.term()
-    vim.cmd.file('test')
-    vim.fn.jobsend(vim.b.terminal_job_id, 'bb test --watch\n')
-
-    vim.cmd.term()
-    vim.cmd.file('shadow')
-    vim.fn.jobsend(vim.b.terminal_job_id, 'npx shadow-cljs watch app\n')
-
-    vim.cmd.term()
-    vim.cmd.file('docker')
-    vim.fn.jobsend(vim.b.terminal_job_id, 'cd tools/dev-env && docker-compose up\n')
-
+    create_tool_buffer('repl', 'bb nrepl\n')
+    create_tool_buffer('test', 'bb test --watch\n')
+    create_tool_buffer('shadow', 'npx shadow-cljs watch app\n')
+    create_tool_buffer('docker', 'cd tools/dev-env && docker-compose up\n')
   end, {})
 
-clojure_command('ErbStart', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev))")
-clojure_command('ErbStop', "(do (require 'erbium.server.system) (erbium.server.system/stop))")
-clojure_command('ErbStartDev', "(do (require 'erbium.dev.dashboard.server) (erbium.dev.dashboard.server/start))")
-clojure_command('ErbFlowStorm', "(do (require 'flow-storm.api) (flow-storm.api/local-connect))")
-clojure_command('ErbPortal', "(do (require '[portal.api :as p]) (p/open) (add-tap #'p/submit))")
+create_clojure_command('ErbStart', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev))")
+create_clojure_command('ErbStop', "(do (require 'erbium.server.system) (erbium.server.system/stop))")
+create_clojure_command('ErbStartDev', "(do (require 'erbium.dev.dashboard.server) (erbium.dev.dashboard.server/start))")
+create_clojure_command('ErbFlowStorm', "(do (require 'flow-storm.api) (flow-storm.api/local-connect))")
+create_clojure_command('ErbPortal', "(do (require '[portal.api :as p]) (p/open) (add-tap #'p/submit))")
