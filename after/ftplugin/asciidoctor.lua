@@ -109,3 +109,4 @@ vim.keymap.set('i', '<c-d>', undent_bullet, { buffer = true })
 vim.keymap.set('i', '<c-t>', indent_bullet, { buffer = true })
 
 vim.keymap.set('n', '<localleader>d', function () require('notes').delete_note() end, { buffer = true })
+vim.keymap.set('n', '<localleader>v', function () vim.fn.system({ 'open', vim.fn.expand('%') }) end, { buffer = true })
