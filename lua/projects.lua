@@ -59,13 +59,20 @@ local function open_project(dir_name)
 end
 
 local function select_project()
+
     local items = {}
+
     if vim.g.projects then
         for _, dir in ipairs(vim.g.projects) do
             table.insert(items, vim.fn.expand(dir))
         end
     end
+
     table.insert(items, vim.fn.stdpath('config'))
+
+    if vim.g.notes_dir then
+        table.insert(items, vim.fs.normalize(vim.g.notes_dir))
+    end
 
     vim.ui.select(items, { prompt = 'Select Project' },
         function(item)

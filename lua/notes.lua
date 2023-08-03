@@ -3,20 +3,25 @@
 -- These are all asciidoc files
 --
 
-local notes_dir = vim.fs.normalize("~/Dropbox/Notes")
-
+local function notes_dir()
+  if vim.g.notes_dir then
+    return vim.fs.normalize(vim.g.notes_dir)
+  else
+    error('Please define vim.g.notes_dir')
+  end
+end
 
 local function note_index(args)
   if type(args) == 'table' then
     args = table.concat(args, ' ')
   end
-  return vim.fn.system('note-index --dir ' .. notes_dir .. ' ' .. args)
+  return vim.fn.system('note-index --dir ' .. notes_dir() .. ' ' .. args)
 end
 
 
 local function is_note(path)
   for dir in vim.fs.parents(path) do
-    if dir == notes_dir then
+    if dir == notes_dir() then
       return true
     end
   end
@@ -28,8 +33,7 @@ local M = {}
 
 
 function M.edit_index()
-  vim.cmd('e ' .. notes_dir .. '/index.adoc')
-  --command! Notes execute "e " . g:notes_dir . "/index.adoc"
+  vim.cmd('e ' .. notes_dir() .. '/index.adoc')
 end
 
 
@@ -54,8 +58,8 @@ end
 
 
 function M.new_note()
-  vim.fn.mkdir(vim.fn.expand(notes_dir .. vim.fn.strftime("/%Y")), "p")
-  vim.api.nvim_command("e " .. notes_dir .. vim.fn.strftime("/%Y/%Y%m%d%H%M%S.adoc"))
+  vim.fn.mkdir(vim.fn.expand(notes_dir() .. vim.fn.strftime("/%Y")), "p")
+  vim.api.nvim_command("e " .. notes_dir() .. vim.fn.strftime("/%Y/%Y%m%d%H%M%S.adoc"))
   print('new note 2')
 end
 
@@ -140,7 +144,7 @@ function M.list_notes()
               value = note,
               display = note.title,
               ordinal = note.title,
-              path = notes_dir .. '/' .. note.path,
+              path = notes_dir() .. '/' .. note.path,
             }
           end,
         }),
