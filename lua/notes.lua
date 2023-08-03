@@ -2,6 +2,11 @@
 --
 -- These are all asciidoc files
 --
+-- On Windows, create the shim `note-index.cmd` on your path like this...
+--
+-- @echo off
+-- bb %USERPROFILE%/bin/note-index %*
+--
 
 local function notes_dir()
   if vim.g.notes_dir then
@@ -15,7 +20,7 @@ local function note_index(args)
   if type(args) == 'table' then
     args = table.concat(args, ' ')
   end
-  return vim.fn.system('note-index --dir ' .. notes_dir() .. ' ' .. args)
+  return vim.fn.system('note-index --dir "' .. notes_dir() .. '" ' .. args)
 end
 
 
