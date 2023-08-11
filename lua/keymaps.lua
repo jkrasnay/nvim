@@ -46,6 +46,10 @@ map('v', '|', '<cmd>Tab /|<cr>', { silent = true })
 -- Show the given buffer along the top of the tab
 vim.cmd(':command! -nargs=? Top :top :new | :b <args>')
 
+-- Use Home/End to move between tabs
+map('n', '<Home>', vim.cmd.tabprevious, { silent = true })
+map('n', '<End>', vim.cmd.tabnext, { silent = true })
+
 --============================================================
 -- Neovim Native LSP Client Config
 --============================================================
@@ -154,3 +158,11 @@ map('n', '<leader>ow', function() require('oil').open('~/ws') end, { silent = tr
 --------------------------------------------------------------
 
 map('n', '<leader>p', require('projects').select_project, { silent = true })
+
+
+--------------------------------------------------------------
+-- Tool commands SPC t...
+--------------------------------------------------------------
+
+map('n', '<leader>te', require('tools').edit_config, { silent = true })
+map('n', '<leader>tl', require('tools').select_tool, { silent = true })
