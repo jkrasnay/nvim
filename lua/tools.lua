@@ -7,6 +7,7 @@ local tools_file = 'tools.json'
 
 local project_markers = {'.git', 'pom.xml', 'package.json', 'deps.edn'}
 
+local last_tool = { }
 
 local function starting_dir()
 
@@ -45,27 +46,73 @@ local function find_project_dir()
 end
 
 
-local function run_tool(tool_name, config, opts)
+local function load_config(config_file)
+  local f = assert(io.open(config_file, 'r'))
+  local s = f:read('*all')
+  f:close()
+  return vim.json.decode(s)
+end
 
-  if vim.fn.bufexists(tool_name) > 0 then
-    vim.cmd('bd! ' .. tool_name)
+
+local function run_tool(tool_name)
+
+  local config_file = find_config_file()
+  if not config_file then
+    print('No ' .. tools_file .. ' found')
+    return
+  end
+
+  local config = load_config(config_file)
+  local tool = config[tool_name]
+
+  if not tool then
+    print("No tool '" .. tool_name .. "' found in " .. config_file)
+    return
+  end
+
+  if not tool.cmd then
+    print("Tool '" .. tool_name .. "' in " .. config_file .. " has no 'cmd' entry")
+    return
+  end
+
+  print('Running tool: ' .. tool_name)
+
+  last_tool[config_file] = tool_name
+
+  local buf_name = config_file .. '/' .. tool_name
+
+  if vim.fn.bufexists(buf_name) > 0 then
+    vim.cmd('bd! ' .. buf_name)
   end
 
   vim.cmd('bo new')
-  vim.fn.termopen(config[tool_name].cmd, opts)
-  vim.cmd.file(tool_name)
+  vim.fn.termopen(tool.cmd, { cwd = vim.fs.dirname(config_file) })
+  vim.cmd.file(buf_name)
   vim.cmd.normal('G')
 
 end
 
 
--- Module definition
---
+local function run_last_tool()
 
-local M = {}
+  local config_file = find_config_file()
+  if not config_file then
+    print('No ' .. tools_file .. ' found')
+    return
+  end
+
+  local lt = last_tool[config_file]
+
+  if lt then
+    run_tool(lt)
+  else
+    print('No last tool for ' .. config_file)
+  end
+
+end
 
 
-function M.edit_config()
+local function edit_config()
 
   local dir = find_project_dir()
 
@@ -78,7 +125,7 @@ function M.edit_config()
 end
 
 
-function M.select_tool()
+local function select_tool()
 
   local config_file = find_config_file()
   if not config_file then
@@ -86,8 +133,7 @@ function M.select_tool()
     return
   end
 
-  local s = vim.fn.join(vim.fn.readfile(config_file), '\n')
-  local config = vim.json.decode(s)
+  local config = load_config(config_file)
 
   local tool_names = {}
   local i = 1
@@ -98,11 +144,30 @@ function M.select_tool()
 
   table.sort(tool_names)
 
-  vim.ui.select(tool_names, nil, function (tool_name)
-    print('Running tool: ' .. tool_name)
-    run_tool(tool_name, config, { cwd = vim.fs.dirname(config_file) })
+  -- If there's a last tool for this config, show it first
+  local lt = last_tool[config_file]
+  if lt then
+    local all_names = tool_names
+    tool_names = { lt }
+    for _, v in ipairs(all_names) do
+      if v ~= lt then
+        table.insert(tool_names, v)
+      end
+    end
+  end
+
+  vim.ui.select(tool_names, { prompt = 'Select Tool' },
+    function (tool_name)
+      run_tool(tool_name)
     end)
 
 end
 
-return M
+return {
+  edit_config = edit_config,
+  run_last_tool = run_last_tool,
+  run_tool = run_tool,
+  select_tool = select_tool,
+}
+
+

@@ -166,3 +166,4 @@ map('n', '<leader>p', require('projects').select_project, { silent = true })
 
 map('n', '<leader>te', require('tools').edit_config, { silent = true })
 map('n', '<leader>tl', require('tools').select_tool, { silent = true })
+map('n', '<leader>tt', require('tools').run_last_tool, { silent = true })
