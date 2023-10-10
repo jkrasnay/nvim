@@ -164,6 +164,4 @@ map('n', '<leader>p', require('projects').select_project, { silent = true })
 -- Tool commands SPC t...
 --------------------------------------------------------------
 
-map('n', '<leader>te', require('tools').edit_config, { silent = true })
-map('n', '<leader>tl', require('tools').select_tool, { silent = true })
-map('n', '<leader>tt', require('tools').run_last_tool, { silent = true })
+map('n', '<leader>t', require('tasks').select_task, { silent = true })
