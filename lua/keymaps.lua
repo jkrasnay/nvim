@@ -124,6 +124,7 @@ map('n', '<leader>cp', '<cmd>up|cp<cr>', { silent = true })
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>',  {})
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>',    {})
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>',  {})
+map('n', '<leader>fo', require('telescope.builtin').lsp_document_symbols,  {})
 map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
 
 --------------------------------------------------------------
