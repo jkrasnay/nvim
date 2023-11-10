@@ -62,7 +62,7 @@ local config = {
   -- the command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
-    vim.g.java_path,
+    vim.g.jdtls_java_path,
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -99,5 +99,4 @@ local config = {
   }
 }
 
---print('launcher_path is' .. launcher_path)
 require('jdtls').start_or_attach(config)
