@@ -34,7 +34,7 @@ end
 
 local root_markers = { 'pom.xml' }
 local root_dir = require('jdtls.setup').find_root(root_markers)
-local workspace_dir = vim.g.jdtls_workspaces_dir .. '/' .. vim.fn.fnamemodify(root_dir, ":p:g:t") -- Note: this must not be a subdir of the project
+local workspace_dir = vim.g.jdtls_workspaces_dir .. '/' .. vim.fn.fnamemodify(root_dir, ":t") -- Note: this must not be a subdir of the project
 local launcher_path = vim.fs.find(
   function (name, _)
     return name:match('org.eclipse.equinox.launcher_.*.jar$')
