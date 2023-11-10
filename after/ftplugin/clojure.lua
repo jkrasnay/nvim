@@ -1,7 +1,11 @@
 vim.bo.shiftwidth = 2
 
---vim.wo.foldmethod = 'marker'
---vim.wo.foldexpr=getline(v:lnum)=~'^;;--'?'<1':1
+-- span macro defined in Erbium
+vim.opt_local.lispwords:append({ 'span' })
+
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = "getline(v:lnum)=~'^;;--'?'>1':1"
+vim.wo.foldlevel = 1
 
 --[[
 "

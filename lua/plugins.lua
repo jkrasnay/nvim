@@ -90,6 +90,7 @@ Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 
 --------------------------------------------------------------
@@ -114,6 +115,18 @@ Plug 'bakpakin/fennel.vim'
 
 -- Asciidoc
 Plug 'habamax/vim-asciidoctor'
+
+-- Java
+Plug 'mfussenegger/nvim-jdtls'
+
+-- Racket
+Plug 'wlangstroth/vim-racket'
+
+-- Treesitter
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+
+-- Ledger
+Plug('ledger/vim-ledger')
 
 
 --------------------------------------------------------------
