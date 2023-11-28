@@ -19,4 +19,5 @@
 --
 -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 --
-require('lspconfig').tsserver.setup({})
+require('lspconfig').tsserver.setup({
+  cmd = { 'typescript-language-server', '--stdio' }})
