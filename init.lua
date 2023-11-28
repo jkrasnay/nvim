@@ -2,6 +2,8 @@ vim.o.background = 'dark'
 vim.opt.completeopt:append({ 'menuone' }) -- Show complete menu even with just one item
 vim.o.ignorecase = true                   -- ...when searching
 vim.o.incsearch = true                    -- Find matches while typing
+vim.o.list = true
+vim.o.listchars = 'tab:▸ ,trail:·'        -- Show some whitespace
 vim.o.laststatus = 2                      -- Always show the status line
 vim.o.lazyredraw = true                   -- Improves Clojure editing format
 vim.o.scrolloff = 2                       -- Min lines to show around cursor while searching
