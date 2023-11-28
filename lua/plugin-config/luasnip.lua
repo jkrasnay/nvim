@@ -38,6 +38,14 @@ ls.add_snippets('clojure', {
     snip('jdbc', '(jdbc/with-db-transaction [db-conn (req/db-pool req)]\n  $1)'),
 })
 
+ls.add_snippets('java', {
+    snip('main', 'public static void main(String[] args) {\n  $1\n}\n\n'),
+    snip('list', 'List<$1> $2 = new ArrayList<>();'),
+    snip('map', 'Map<$1, $2> $3 = new HashMap<>();'),
+    snip('pubs', 'public static void $1 $2($3) {\n  $4\n}\n\n'),
+    snip('print', 'System.out.println("$1");'),
+})
+
 --[[
 
 snip('rep (reg-endpoint :${1:module}/${2:endpoint}
