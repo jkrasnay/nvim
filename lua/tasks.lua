@@ -84,9 +84,10 @@ local function run_task(task)
 
   local dir = vim.fs.dirname(task.file)
   local buf_name = 'task:' .. dir .. ':' .. task.cmd
+  local bufnr = vim.fn.bufnr(buf_name)
 
-  if vim.fn.bufexists(buf_name) > 0 then
-    vim.cmd('bd! ' .. buf_name)
+  if bufnr > -1 then
+    vim.api.nvim_buf_delete(bufnr, {})
   end
 
   vim.cmd('bo new')
