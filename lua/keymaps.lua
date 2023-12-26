@@ -31,6 +31,9 @@ map('n', '<C-j>', '<c-w>j', { silent = true })
 map('n', '<C-k>', '<c-w>k', { silent = true })
 map('n', '<C-l>', '<c-w>l', { silent = true })
 
+-- Zoom current window into a new tab
+map('n', '<c-w>z', '<cmd>tabnew|b#<cr>', { silent = true })
+
 -- Use shift + hjkl to resize windows
 map('n', '<s-down>',  '<cmd>resize -2<CR>', { silent = true })
 map('n', '<s-up>',    '<cmd>resize +2<CR>', { silent = true })
@@ -121,11 +124,12 @@ map('n', '<leader>cp', '<cmd>up|cp<cr>', { silent = true })
 
 --map('n', '<leader>ft', '<cmd>NERDTreeToggle<cr>',           { silent = true })
 --map('n', '<leader>ff', '<cmd>NERDTreeFind<cr>',             { silent = true })
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>',  {})
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>',    {})
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>',  {})
-map('n', '<leader>fo', require('telescope.builtin').lsp_document_symbols,  {})
-map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', {})
+map('n', '<leader>fb', '<cmd>Telescope buffers<cr>',    { desc = '[F]ind [b]uffer' })
+map('n', '<leader>fd', require('telescope.builtin').lsp_document_symbols,  { desc = '[F]ind [d]ocument symbols' })
+map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>',  { desc = '[F]ind with [g]rep' })
+map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>',  { desc = '[F]ind [h]elp topic' })
+map('n', '<leader>fk', require('telescope.builtin').keymaps,  { desc = '[F]ind [k]eymappings' })
+map('n', '<leader>fz', '<cmd>Telescope find_files<cr>', { desc = '[F]ind file[z]' })
 
 --------------------------------------------------------------
 -- Git commands SPC g...
@@ -158,11 +162,11 @@ map('n', '<leader>ow', function() require('oil').open('~/ws') end, { silent = tr
 -- Project commands SPC p...
 --------------------------------------------------------------
 
-map('n', '<leader>p', require('projects').select_project, { silent = true })
+map('n', '<leader>p', function () require('projects').select_project() end, { desc = 'Select [p]roject' })
 
 
 --------------------------------------------------------------
 -- Tool commands SPC t...
 --------------------------------------------------------------
 
-map('n', '<leader>t', require('tasks').select_task, { silent = true })
+map('n', '<leader>t', function () require('tasks').select_task() end, { desc = 'Select [t]ask' })
