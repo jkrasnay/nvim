@@ -18,11 +18,17 @@ ls.add_snippets('all', {
     snip('theta', 'θ'),
     snip('1/2', '½'),
     snip('1/3', '⅓'),
+    snip('2/3', '⅔'),
     snip('1/4', '¼'),
+    snip('3/4', '¾'),
     snip('1/8', '⅛'),
+    snip('3/8', '⅜'),
+    snip('5/8', '⅝'),
+    snip('7/8', '⅞'),
 })
 
 ls.add_snippets('asciidoctor', {
+    snip('code', '----\n$1\n----'),
     snip('link', 'link:$1[$2]'),
     snip('xref', 'xref:$1[$2]'),
     snip('table', '|===\n| $1\n|==='),
