@@ -16,6 +16,11 @@
 -- If selected, we run the command in the same directory of the config file
 --
 
+-- Map of directory to the last task invoked for that directory
+-- The directory is taken from the first task in the list
+--
+local last_task = { }
+
 local function starting_dir()
 
   local buffer_file = vim.api.nvim_buf_get_name(0)
@@ -80,9 +85,10 @@ local function run_task(task)
 
   print('Running task: ' .. task.cmd)
 
-  -- last_tool[config_file] = tool_name
-
   local dir = vim.fs.dirname(task.file)
+
+  last_task[dir] = task
+
   local buf_name = 'task:' .. dir .. ':' .. task.cmd
   local bufnr = vim.fn.bufnr(buf_name)
 
@@ -115,21 +121,26 @@ local function select_task()
     return
   end
 
-  -- table.sort(tool_names)
+  table.sort(tasks, function (a,b) return a.cmd < b.cmd end)
 
   -- If there's a last tool for this config, show it first
-  --[[
-  local lt = last_tool[config_file]
+
+  local task_id = function (task)
+    return task.file .. ':' .. task.cmd
+  end
+
+  local dir = vim.fs.dirname(tasks[1].file)
+  local lt = last_task[dir]
   if lt then
-    local all_names = tool_names
-    tool_names = { lt }
-    for _, v in ipairs(all_names) do
-      if v ~= lt then
-        table.insert(tool_names, v)
+    local lt_id = task_id(lt)
+    local all_tasks = tasks
+    tasks = { lt }
+    for _, v in ipairs(all_tasks) do
+      if task_id(v) ~= lt_id then
+        table.insert(tasks, v)
       end
     end
   end
-  --]]
 
   --
   -- Problem: what to attach the "last task" run?
@@ -144,12 +155,16 @@ local function select_task()
   --   * Each time we show a list of tasks, look for any of those tasks in last_invoked.
   --     If found, that task is shown first
 
-  vim.ui.select(tasks, { prompt = 'Select Tool', format_item = function (task) return task.cmd end },
+  vim.ui.select(tasks, { prompt = 'Select Task', format_item = function (task) return task.cmd end },
     function (task)
-      run_task(task)
+      if task then
+        run_task(task)
+      end
     end)
 
 end
+
+
 return {
   select_task = select_task,
 }
