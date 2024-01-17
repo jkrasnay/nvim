@@ -53,7 +53,7 @@ local function find_bb_tasks()
       end
     end
 
-    return tasks;
+    return tasks
 
   else
     return {}
@@ -70,9 +70,37 @@ local function find_mvn_tasks()
 
     return {
       { file = pom_xml, cmd = 'mvn clean' },
-      { file = pom_xml, cmd = 'mvn clean install' },
-      { file = pom_xml, cmd = 'mvn clean package' },
+      { file = pom_xml, cmd = 'mvn package' },
+      { file = pom_xml, cmd = 'mvn install' },
     };
+
+  else
+    return {}
+  end
+
+end
+
+
+local function find_npm_tasks()
+
+  local package_json = vim.fs.find('package.json', { upward = true, path = starting_dir() })[1]
+
+  if package_json then
+
+    local scripts = vim.fn.json_decode(vim.fn.readfile('/Users/john/ws/retab/package.json')).scripts
+    local tasks = {}
+
+    for k, _ in pairs(scripts) do
+      local cmd
+      if k == 'start' then
+        cmd = 'npm start'
+      else
+        cmd = 'npm run ' .. k
+      end
+      table.insert(tasks, { file = package_json, cmd = cmd })
+    end
+
+    return tasks
 
   else
     return {}
@@ -113,6 +141,10 @@ local function select_task()
   end
 
   for _, task in ipairs(find_mvn_tasks()) do
+    table.insert(tasks, task)
+  end
+
+  for _, task in ipairs(find_npm_tasks()) do
     table.insert(tasks, task)
   end
 
