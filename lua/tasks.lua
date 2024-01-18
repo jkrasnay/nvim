@@ -87,7 +87,7 @@ local function find_npm_tasks()
 
   if package_json then
 
-    local scripts = vim.fn.json_decode(vim.fn.readfile('/Users/john/ws/retab/package.json')).scripts
+    local scripts = vim.fn.json_decode(vim.fn.readfile(package_json)).scripts
     local tasks = {}
 
     for k, _ in pairs(scripts) do
