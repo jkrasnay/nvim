@@ -3,8 +3,9 @@ require('erbium')
 vim.g.projects = {
   '~/ws/erbium',
   '~/ws/erbium-db',
-  '~/ws/luhmann',
+  '~/ws/retab',
   '~/ws/sundog-tools',
+  '~/ws/the-little-typer',
   '~/Dropbox/sundog-consulting',
   '~/ws/zmk-sweep',
   '~/Dropbox/erbium-sql',
