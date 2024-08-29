@@ -137,6 +137,13 @@ map('n', '<leader>gg', '<cmd>Git<cr>', { silent = true })
 map('n', '<leader>gp', '<cmd>Git push<cr>', { silent = true })
 
 --------------------------------------------------------------
+-- Issues: SPC g...
+--------------------------------------------------------------
+
+map('n', '<leader>ii', require('issues').put_one, { silent = true })
+map('n', '<leader>it', require('issues').put_todo, { silent = true })
+
+--------------------------------------------------------------
 -- Notes commands SPC n...
 --------------------------------------------------------------
 
