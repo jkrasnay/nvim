@@ -4,6 +4,8 @@ local snip = ls.parser.parse_snippet
 
 ls.add_snippets('all', {
     --snip('date `!v', 'strftime("%F")`')
+    snip('->', '→'),
+    snip('<-', '←'),
     snip('shrug', '¯\\_(ツ)_/¯'),
     snip('darr', '↓'),
     snip('drarr', '↳'),
@@ -14,8 +16,11 @@ ls.add_snippets('all', {
     snip('therefore', '∴'),
     snip('delta', 'Δ'),
     snip('epsilon', 'ε'),
+    snip('lambda', 'λ'),
     snip('mu', 'μ'),
     snip('theta', 'θ'),
+    snip('Pi', 'Π'),
+    snip('Sigma', 'Σ'),
     snip('1/2', '½'),
     snip('1/3', '⅓'),
     snip('2/3', '⅔'),
@@ -31,7 +36,7 @@ ls.add_snippets('asciidoctor', {
     snip('code', '----\n$1\n----'),
     snip('link', 'link:$1[$2]'),
     snip('xref', 'xref:$1[$2]'),
-    snip('table', '|===\n| $1\n|==='),
+    snip('table', '[%autowidth]\n|===\n| $1\n|==='),
     snip('todo', '* [ ] $1'),
 })
 
