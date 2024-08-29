@@ -1,5 +1,6 @@
 vim.o.background = 'dark'
 vim.opt.completeopt:append({ 'menuone' }) -- Show complete menu even with just one item
+vim.o.hlsearch = false                    -- Don't highlight searched term by default
 vim.o.ignorecase = true                   -- ...when searching
 vim.o.incsearch = true                    -- Find matches while typing
 vim.o.list = true

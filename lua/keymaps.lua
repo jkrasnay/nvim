@@ -20,11 +20,9 @@ map('c', '<c-e>', '<end>', { noremap = true })
 -- Map completion to Ctrl-Space
 map('i', '<C-Space>', 'compe#complete()', { expr = true })
 
--- Clear highlight with \ (opposite of /)
-map('n', '\\', '<cmd>noh<cr>', { silent = true})
+-- Toggle hlsearch with \ (opposite of /)
+map('n', '\\', '<cmd>set hlsearch!<cr>', { silent = true})
 
--- Mappings to quickly move through the results
---
 -- Move quickly between windows
 map('n', '<C-h>', '<c-w>h', { silent = true })
 map('n', '<C-j>', '<c-w>j', { silent = true })
