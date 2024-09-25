@@ -110,8 +110,24 @@ require('lazy').setup({
 local hostname = string.gsub(vim.fn.hostname(), '.local', '')
 pcall(require, 'hosts/' .. hostname)
 
-require('projects')
-require('keymaps')
 
+require('notes')
+
+vim.keymap.set('n', '<leader>nd', '<cmd>lua require("notes").new_diary_entry()<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ni', '<cmd>lua require("notes").new_note()<cr>',        { silent = true })
+vim.keymap.set('n', '<leader>nn', '<cmd>lua require("notes").edit_index()<cr>',      { silent = true })
+--vim.keymap.set('n', '<leader>nl', '<cmd>lua require("notes").list_notes()<cr>',      { silent = true })
+vim.keymap.set('n', '<leader>nl', require("notes").list_notes,      { silent = true })
+vim.keymap.set('n', '<leader>nx', '<cmd>lua require("notes").index_notes()<cr>',      { silent = true })
+
+
+require('projects')
+
+vim.keymap.set('n', '<leader>p', function () require('projects').select_project() end, { desc = 'Select [p]roject' })
+
+
+require('tasks')
+
+vim.keymap.set('n', '<leader>t', function () require('tasks').select_task() end, { desc = 'Select [t]ask' })
 
 -- vim: ts=2 sts=2 sw=2 et
