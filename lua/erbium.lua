@@ -1,3 +1,5 @@
+local is_up = false
+
 local function assert_erbium()
   local cwd = vim.fn.fnamemodify(vim.fn.getcwd(0), ':t')
   if cwd ~= 'erbium' then
@@ -29,11 +31,17 @@ end
 vim.api.nvim_create_user_command('ErbUp',
   function()
     assert_erbium()
+    if is_up then
+      print('Erbium is already up')
+      return
+    end
     vim.cmd.vnew()
-    create_tool_buffer('repl', 'bb nrepl\n')
-    create_tool_buffer('test', 'bb test --watch\n')
-    create_tool_buffer('shadow', 'npx shadow-cljs watch app\n')
-    create_tool_buffer('docker', 'cd tools/dev-env && docker-compose up\n')
+    create_tool_buffer('erbium-repl', 'bb nrepl\n')
+    create_tool_buffer('erbium-test', 'bb test --watch\n')
+    create_tool_buffer('erbium-shadow', 'npx shadow-cljs watch app test\n')
+    create_tool_buffer('erbium-docker', 'cd tools/dev-env && docker-compose up\n')
+    vim.fn.serverstart('/tmp/nvim.erbium')
+    is_up = true
   end, {})
 
 create_clojure_command('ErbStart', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev))")

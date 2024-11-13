@@ -7,6 +7,8 @@ vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = "getline(v:lnum)=~'^;;--'?'>1':1"
 vim.wo.foldlevel = 1
 
+vim.bo.formatoptions = vim.bo.formatoptions .. 'ro'
+
 --[[
 "
 " By default, J leaves spaces before ] and }

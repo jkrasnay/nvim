@@ -101,16 +101,16 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      --completion = { completeopt = 'menu,menuone,noselect' },
-      completion = { completeopt = 'menu,menuone' },
+      completion = { completeopt = 'menu,menuone,noselect' },
+      --completion = { completeopt = 'menu,menuone' },
 
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
       --
       -- No, but seriously. Please read `:help ins-completion`, it is really good!
       mapping = cmp.mapping.preset.insert {
-        --['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-        --['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
 
         -- Scroll the documentation window [b]ack / [f]orward
         --['<C-b>'] = cmp.mapping.scroll_docs(-4),

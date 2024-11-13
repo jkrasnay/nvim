@@ -14,9 +14,10 @@ vim.g.projects = {
   '~/ws/signamo',
   '~/ws/sundog-tools',
   '~/ws/the-little-typer',
-  '~/Dropbox/sundog-consulting',
   '~/ws/zmk-sweep',
+  '~/ws/zoomable-ui',
   '~/Dropbox/erbium-sql',
+  '~/Dropbox/sundog-consulting',
 }
 
 vim.g.notes_dir = '~/Dropbox/Notes'
