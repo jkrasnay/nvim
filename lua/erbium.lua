@@ -49,3 +49,35 @@ create_clojure_command('ErbStop', "(do (require 'erbium.server.system) (erbium.s
 create_clojure_command('ErbStartDev', "(do (require 'erbium.dev.dashboard.server) (erbium.dev.dashboard.server/start))")
 create_clojure_command('ErbFlowStorm', "(do (require 'flow-storm.api) (flow-storm.api/local-connect {:theme :dark :verbose? true}))")
 create_clojure_command('ErbPortal', "(do (require '[portal.api :as p]) (p/open) (add-tap #'p/submit))")
+
+
+-- ClojureScript REPL  --------------------------------------------------
+
+
+local function cljs_repl()
+  vim.cmd.ConjureClientState('cljs')
+  if not require('conjure.client.clojure.nrepl.server')['connected?']() then
+    vim.notify('Connecting to CLJS REPL')
+    local port = vim.fn.readfile('.shadow-cljs/nrepl.port')[1]
+    vim.cmd.ConjureConnect(port)
+    vim.cmd.ConjureShadowSelect('app')
+  end
+end
+
+vim.api.nvim_create_user_command('CljsRepl', cljs_repl, {})
+vim.api.nvim_create_user_command('CljRepl', function() vim.cmd.ConjureClientState('default') end, {})
+
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  desc = 'Set correct Conjure client state for Clojure REPLs',
+  group = vim.api.nvim_create_augroup('set-clj-client-state', { clear = true }),
+  pattern = { '*.clj', '*.cljc' },
+  command = ':CljRepl',
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  desc = 'Set correct Conjure client state for ClojureScript REPLs',
+  group = vim.api.nvim_create_augroup('set-cljs-client-state', { clear = true }),
+  pattern = '*.cljs',
+  command = ':CljsRepl',
+})
