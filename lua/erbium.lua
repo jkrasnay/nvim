@@ -25,7 +25,7 @@ end
 local function create_tool_buffer(name, cmd)
     vim.cmd.term()
     vim.cmd.file(name)
-    vim.fn.jobsend(vim.b.terminal_job_id, cmd)
+    vim.fn.chansend(vim.b.terminal_job_id, cmd)
 end
 
 vim.api.nvim_create_user_command('ErbUp',
@@ -39,7 +39,8 @@ vim.api.nvim_create_user_command('ErbUp',
     create_tool_buffer('erbium-repl', 'bb nrepl\n')
     create_tool_buffer('erbium-test', 'bb test --watch\n')
     create_tool_buffer('erbium-shadow', 'npx shadow-cljs watch app test\n')
-    create_tool_buffer('erbium-docker', 'cd tools/dev-env && docker-compose up\n')
+    create_tool_buffer('erbium-tailwind', 'npx @tailwindcss/cli -i src/main/css/tailwind-input.css -o target/classes/public/css/tailwind-output.css --watch\n')
+    create_tool_buffer('erbium-docker', 'cd tools/dev-env && docker compose up\n')
     vim.fn.serverstart('/tmp/nvim.erbium')
     is_up = true
   end, {})
@@ -66,7 +67,6 @@ end
 
 vim.api.nvim_create_user_command('CljsRepl', cljs_repl, {})
 vim.api.nvim_create_user_command('CljRepl', function() vim.cmd.ConjureClientState('default') end, {})
-
 
 vim.api.nvim_create_autocmd('BufEnter', {
   desc = 'Set correct Conjure client state for Clojure REPLs',
