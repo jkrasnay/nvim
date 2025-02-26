@@ -51,6 +51,8 @@ local function add_snippets()
     snip('cljs', '#?(:cljs\n   $1)'),
     snip({ trig = '@cljs', wordTrig = false }, '#?@(:cljs\n    [$1])'),
     snip('jdbc', '(jdbc/with-db-transaction [db-conn (req/db-pool req)]\n  $1)'),
+    snip('sub', '(<- [$1])'),
+    snip('defsub', '(def <- (comp deref rf/subscribe))'),
   })
 
   ls.add_snippets('java', {
@@ -59,6 +61,10 @@ local function add_snippets()
     snip('map', 'Map<$1, $2> $3 = new HashMap<>();'),
     snip('pubs', 'public static void $1 $2($3) {\n  $4\n}\n\n'),
     snip('print', 'System.out.println("$1");'),
+  })
+
+  ls.add_snippets('sql', {
+    snip('create', 'create or replace function $1() returns text as\n$$\nbegin\n    return \'Done\';\nend\n$$ language plpgsql;\n\ndrop function $1();\n'),
   })
 
 end
