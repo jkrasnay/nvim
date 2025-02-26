@@ -74,7 +74,11 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Trim trailing whitespace on save',
   group = vim.api.nvim_create_augroup('clear-trailing-whitespace', { clear = true }),
   pattern = '*',
-  command = ':%s/\\s\\+$//e',
+  -- The slight complication with `norm`, etc., is so that the cursor
+  -- is returned to its original position when saving.
+  --
+  -- See https://stackoverflow.com/a/69071379
+  command = ":exe 'norm m`' | %s/\\s\\+$//e | norm g``",
 })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
