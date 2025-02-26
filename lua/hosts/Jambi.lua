@@ -4,16 +4,12 @@ vim.o.guifont = 'FiraCode Nerd Font:h16'
 vim.g.neovide_cursor_vfx_mode = 'railgun'
 
 vim.g.projects = {
-  '~/ws/diascript',
+  '~/dotfiles',
   '~/ws/erbium',
   '~/ws/erbium-config',
   '~/ws/erbium-db',
   '~/ws/erbium-docs',
-  '~/ws/erbium-kiosk',
-  '~/ws/retab-3',
-  '~/ws/signamo',
   '~/ws/sundog-tools',
-  '~/ws/the-little-typer',
   '~/ws/zmk-sweep',
   '~/ws/zoomable-ui',
   '~/Dropbox/erbium-sql',
