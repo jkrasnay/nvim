@@ -46,8 +46,10 @@ vim.api.nvim_create_user_command('ErbUp',
   end, {})
 
 create_clojure_command('ErbStart', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev))")
+create_clojure_command('ErbStartItest', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :itest))")
 create_clojure_command('ErbStop', "(do (require 'erbium.server.system) (erbium.server.system/stop))")
 create_clojure_command('ErbStartDev', "(do (require 'erbium.dev.dashboard.server) (erbium.dev.dashboard.server/start))")
+create_clojure_command('ErbStartDevTls', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev-tls))")
 create_clojure_command('ErbFlowStorm', "(do (require 'flow-storm.api) (flow-storm.api/local-connect {:theme :dark :verbose? true}))")
 create_clojure_command('ErbPortal', "(do (require '[portal.api :as p]) (p/open) (add-tap #'p/submit))")
 
