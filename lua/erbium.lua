@@ -38,8 +38,8 @@ vim.api.nvim_create_user_command('ErbUp',
     vim.cmd.vnew()
     create_tool_buffer('erbium-repl', 'bb nrepl\n')
     create_tool_buffer('erbium-test', 'bb test --watch\n')
-    create_tool_buffer('erbium-shadow', 'npx shadow-cljs watch app test\n')
-    create_tool_buffer('erbium-tailwind', 'npx @tailwindcss/cli -i src/main/css/tailwind-input.css -o target/classes/public/css/tailwind-output.css --watch\n')
+    create_tool_buffer('erbium-shadow', 'bb shadow\n')
+    create_tool_buffer('erbium-tailwind', 'bb tailwind --watch\n')
     create_tool_buffer('erbium-docker', 'cd tools/dev-env && docker compose up\n')
     vim.fn.serverstart('/tmp/nvim.erbium')
     is_up = true
@@ -47,9 +47,8 @@ vim.api.nvim_create_user_command('ErbUp',
 
 create_clojure_command('ErbStart', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev))")
 create_clojure_command('ErbStartItest', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :itest))")
+create_clojure_command('ErbStartTls', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev-tls))")
 create_clojure_command('ErbStop', "(do (require 'erbium.server.system) (erbium.server.system/stop))")
-create_clojure_command('ErbStartDev', "(do (require 'erbium.dev.dashboard.server) (erbium.dev.dashboard.server/start))")
-create_clojure_command('ErbStartDevTls', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev-tls))")
 create_clojure_command('ErbFlowStorm', "(do (require 'flow-storm.api) (flow-storm.api/local-connect {:theme :dark :verbose? true}))")
 create_clojure_command('ErbPortal', "(do (require '[portal.api :as p]) (p/open) (add-tap #'p/submit))")
 
