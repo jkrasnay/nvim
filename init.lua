@@ -54,6 +54,12 @@ vim.keymap.set('n', '\\', '<cmd>set hlsearch!<cr>', { silent = true})
 
 -- Diagnostic keymaps
 --vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- Show errors and warnings in a floating window
+vim.api.nvim_create_autocmd("CursorHold", {
+    callback = function()
+        vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
+    end,
+})
 
 -- Escape insert mode in the terminal
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>', {})
