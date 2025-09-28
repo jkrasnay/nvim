@@ -19,6 +19,7 @@ return {
       defaults = {
         file_sorter = require('telescope.sorters').get_fzy_sorter,
         generic_sorter = require('telescope.sorters').get_fzy_sorter,
+        layout_strategy = 'vertical',
       },
       extensions = {
         ['ui-select'] = {
