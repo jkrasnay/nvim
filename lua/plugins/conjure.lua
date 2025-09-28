@@ -16,7 +16,7 @@ return {
     --  autocmd BufEnter conjure-log-* lua vim.diagnostic.disable(0)
     vim.api.nvim_create_autocmd(
       { "BufEnter" },
-      { pattern = "conjure-log-*", command = "lua vim.diagnostic.disable(0)" })
+      { pattern = "conjure-log-*", command = "lua vim.diagnostic.enable(false, { bufnr = 0 })" })
 
   end
 }
