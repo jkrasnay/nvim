@@ -45,12 +45,13 @@ vim.api.nvim_create_user_command('ErbUp',
     is_up = true
   end, {})
 
-create_clojure_command('ErbStart', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev))")
-create_clojure_command('ErbStartItest', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :itest))")
-create_clojure_command('ErbStartTls', "(do (require 'erbium.server.main) (require 'erbium.server.system) (erbium.server.system/start :dev-tls))")
-create_clojure_command('ErbStop', "(do (require 'erbium.server.system) (erbium.server.system/stop))")
+create_clojure_command('ErbStart', "(do (require 'erbium.server.main) (erbium.server.main/start))")
+create_clojure_command('ErbStop', "(do (require 'erbium.server.main) (erbium.server.main/stop))")
+create_clojure_command('ErbStartItest', "(do (require 'erbium.server.main) (erbium.server.main/start-itest))")
+create_clojure_command('ErbStopItest', "(do (require 'erbium.server.main) (erbium.server.main/stop-itest))")
+create_clojure_command('ErbStartTls', "(do (require 'erbium.server.main) (erbium.server.main/start-tls))")
+create_clojure_command('ErbStopTls', "(do (require 'erbium.server.main) (erbium.server.main/stop-tls))")
 create_clojure_command('ErbFlowStorm', "(do (require 'flow-storm.api) (flow-storm.api/local-connect {:theme :dark :verbose? true}))")
-create_clojure_command('ErbPortal', "(do (require '[portal.api :as p]) (p/open) (add-tap #'p/submit))")
 
 
 -- ClojureScript REPL  --------------------------------------------------
